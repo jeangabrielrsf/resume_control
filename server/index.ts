@@ -83,8 +83,7 @@ const app = new Elysia()
 
             const { GoogleGenerativeAI } = require("@google/generative-ai");
             const genAI = new GoogleGenerativeAI(apiKey);
-            // using gemini-1.5-flash as it is fast and cheap/free
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-3-pro-preview" });
 
             console.log("Generating resume with Gemini...");
 
