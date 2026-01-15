@@ -42,9 +42,22 @@ if pgrep -x "ollama" > /dev/null; then
         fi
     else
         echo "✅ Ollama is listening on all interfaces (0.0.0.0 or equivalent)."
+        
+        # In standard WSL2 setups without Docker Desktop, 'host.docker.internal' is flaky.
+        # We will dynamically find the Windows Host IP from the default route.
+        if [ "$IS_WSL" = true ]; then
+            WSL_HOST_IP=$(ip route show | grep default | awk '{print $3}')
+            echo "   WSL2 detected. Using Host IP: $WSL_HOST_IP"
+            DOCKER_HOST_URL="http://$WSL_HOST_IP:11434/api/generate"
+        fi
     fi
 else
     echo "⚠️  Ollama process NOT found locally. Assuming it's running on Windows host or external."
+    if [ "$IS_WSL" = true ]; then
+        WSL_HOST_IP=$(ip route show | grep default | awk '{print $3}')
+        echo "   WSL2 detected. Using Host IP: $WSL_HOST_IP"
+        DOCKER_HOST_URL="http://$WSL_HOST_IP:11434/api/generate"
+    fi
 fi
 
 # Start Proxy if needed

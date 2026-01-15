@@ -63,7 +63,7 @@ const app = new Elysia()
         })
     })
 
-    // --- AI Generation ---
+    // --- AI Generation (Gemini) ---
     .post('/ai/generate-resume', async ({ body, error }) => {
         const { jobDescription } = body as { jobDescription: string };
         await db.read();
@@ -73,45 +73,49 @@ const app = new Elysia()
             return error(400, 'Base Resume is empty. Please set it in settings first.');
         }
 
-        // Call Ollama
+        // Call Gemini API
         try {
-            const ollamaUrl = process.env.OLLAMA_API_URL || 'http://host.docker.internal:11434/api/generate';
-            console.log(`Sending request to Ollama at: ${ollamaUrl}`); // Log for debug
+            const apiKey = process.env.GEMINI_API_KEY;
+            if (!apiKey) {
+                console.error("GEMINI_API_KEY is missing");
+                return error(500, 'GEMINI_API_KEY is not configured on the server.');
+            }
 
-            const response = await fetch(ollamaUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: 'gpt-oss:20b', // User requested this model
-                    prompt: `You are a Resume Expert.
+            const { GoogleGenerativeAI } = require("@google/generative-ai");
+            const genAI = new GoogleGenerativeAI(apiKey);
+            // using gemini-1.5-flash as it is fast and cheap/free
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            console.log("Generating resume with Gemini...");
+
+            const prompt = `You are a Resume Expert.
         
 TASK: Customize the following LaTeX resume for the job description provided.
 RULES:
 1. Keep the exact same LaTeX structure and commands. Do NOT remove packages or structural elements.
 2. Only modify the Content (Summary, Experience bullets, Skills) to better match the Job Description keywords.
-3. Output ONLY the raw LaTeX code. No markdown code blocks, no intro text.
+3. Output ONLY the raw LaTeX code. No markdown code blocks, no intro text. Do not wrap in \`\`\`latex.
 
 JOB DESCRIPTION:
 ${jobDescription}
 
 BASE RESUME LATEX:
-${baseResume}
-`,
-                    stream: false
-                }),
-                signal: AbortSignal.timeout(900_000) // 15 minutes timeout
-            });
+${baseResume}`;
 
-            if (!response.ok) {
-                throw new Error(`Ollama error: ${response.statusText}`);
-            }
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            const text = response.text();
 
-            const data = await response.json();
-            return { generatedResume: data.response };
+            // Clean up: Remove markdown blocks if present
+            const cleanText = text.replace(/^```latex\n|```$/g, '').trim();
+            // Also remove if it starts with ```
+            const finalClean = cleanText.replace(/^```\n/, '').replace(/```$/, '');
+
+            return { generatedResume: finalClean };
 
         } catch (err) {
-            console.error(err);
-            return error(500, 'Failed to generate resume via Ollama');
+            console.error("Gemini API Error:", err);
+            return error(500, 'Failed to generate resume via Gemini API');
         }
     }, {
         body: t.Object({

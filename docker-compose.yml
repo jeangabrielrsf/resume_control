@@ -11,7 +11,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
-      - OLLAMA_API_URL=${OLLAMA_API_URL}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
     restart: unless-stopped
 
   client:
