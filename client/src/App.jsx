@@ -7,7 +7,8 @@ import TableView from './components/TableView';
 import BoardView from './components/BoardView';
 import ApplicationModal from './components/ApplicationModal';
 import SettingsModal from './components/SettingsModal';
-import { Toaster } from "@/components/ui/sonner"
+import ConfirmDialog from './components/ConfirmDialog';
+import { Toaster, toast } from 'sonner';
 
 function App() {
   const [applications, setApplications] = useState([]);
@@ -16,12 +17,21 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [editingApp, setEditingApp] = useState(null);
 
+  // Confirm Dialog State
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: '',
+    description: '',
+    onConfirm: () => { },
+  });
+
   const loadData = async () => {
     try {
       const data = await fetchApplications();
       setApplications(data);
     } catch (err) {
       console.error(err);
+      toast.error('Failed to load applications.');
     }
   };
 
@@ -33,22 +43,38 @@ function App() {
     try {
       if (editingApp) {
         await updateApplication(editingApp.id, data);
+        toast.success('Application updated successfully!');
       } else {
         await createApplication(data);
+        toast.success('Application created successfully!');
       }
       setIsModalOpen(false);
       setEditingApp(null);
       loadData();
     } catch (err) {
-      alert('Error saving application');
+      console.error(err);
+      toast.error('Error saving application');
     }
   };
 
-  const handleDelete = async (id) => {
-    if (confirm('Are you sure?')) {
-      await deleteApplication(id);
-      loadData();
-    }
+  const handleDeleteClick = (id) => {
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Application',
+      description: 'Are you sure you want to delete this application? This action cannot be undone.',
+      onConfirm: async () => {
+        try {
+          await deleteApplication(id);
+          toast.success('Application deleted successfully');
+          loadData();
+        } catch (err) {
+          console.error(err);
+          toast.error('Failed to delete application');
+        } finally {
+          setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        }
+      }
+    });
   };
 
   const openNew = () => {
@@ -99,7 +125,7 @@ function App() {
           <TableView
             data={applications}
             onEdit={openEdit}
-            onDelete={handleDelete}
+            onDelete={handleDeleteClick}
           />
         )}
         {view === 'board' && (
@@ -107,8 +133,12 @@ function App() {
             data={applications}
             onEdit={openEdit}
             onUpdateStatus={async (id, newStatus) => {
-              await updateApplication(id, { etapa: newStatus });
-              loadData();
+              try {
+                await updateApplication(id, { etapa: newStatus });
+                loadData();
+              } catch (error) {
+                toast.error('Failed to update status');
+              }
             }}
           />
         )}
@@ -125,6 +155,15 @@ function App() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
+
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        onClose={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={confirmDialog.onConfirm}
+        title={confirmDialog.title}
+        description={confirmDialog.description}
+      />
+
       <Toaster />
     </div>
   );

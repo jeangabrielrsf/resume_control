@@ -3,6 +3,13 @@ import { Calendar } from 'lucide-react';
 const STATUSES = ['Enviei candidatura', 'Etapa com RH', 'Etapa técnica', 'Oferta', 'Negativa'];
 
 const BoardView = ({ data, onEdit }) => {
+    const handleKeyDown = (e, app) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onEdit(app);
+        }
+    };
+
     return (
         <div className="flex gap-4 overflow-x-auto pb-4 h-[calc(100vh-140px)]">
             {STATUSES.map(status => {
@@ -22,8 +29,12 @@ const BoardView = ({ data, onEdit }) => {
                             {apps.map(app => (
                                 <div
                                     key={app.id}
-                                    className="rounded-lg border bg-background text-card-foreground shadow-sm hover:border-primary/50 transition-colors cursor-pointer p-4 space-y-2"
+                                    className="rounded-lg border bg-background text-card-foreground shadow-sm hover:border-primary/50 transition-colors cursor-pointer p-4 space-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                                     onClick={() => onEdit(app)}
+                                    onKeyDown={(e) => handleKeyDown(e, app)}
+                                    tabIndex="0"
+                                    role="button"
+                                    aria-label={`Edit application for ${app.vaga} at ${app.empresa}`}
                                 >
                                     <div className="flex justify-between items-start">
                                         <span className="text-sm text-muted-foreground font-medium">{app.empresa}</span>
@@ -35,7 +46,7 @@ const BoardView = ({ data, onEdit }) => {
                                     </div>
                                     <div className="flex items-center text-xs text-muted-foreground pt-2">
                                         <Calendar size={12} className="mr-1" />
-                                        {app.dataCandidatura ? app.dataCandidatura.split('T')[0].split('-').reverse().join('/') : '-'}
+                                        {formatDate(app.dataCandidatura)}
                                     </div>
                                 </div>
                             ))}
@@ -55,6 +66,16 @@ const getStatusDot = (status) => {
         case 'Oferta': return 'bg-emerald-500';
         case 'Negativa': return 'bg-red-500';
         default: return 'bg-gray-500';
+    }
+};
+
+const formatDate = (dateString) => {
+    if (!dateString) return '-';
+    try {
+        const date = new Date(dateString);
+        return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date);
+    } catch (e) {
+        return dateString;
     }
 };
 

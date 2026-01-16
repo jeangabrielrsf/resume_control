@@ -2,6 +2,13 @@ import { ExternalLink, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const TableView = ({ data, onEdit, onDelete }) => {
+    const handleKeyDown = (e, app) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onEdit(app);
+        }
+    };
+
     return (
         <div className="rounded-md border bg-card">
             <div className="relative w-full overflow-auto">
@@ -30,7 +37,15 @@ const TableView = ({ data, onEdit, onDelete }) => {
                             </tr>
                         )}
                         {data.map(app => (
-                            <tr key={app.id} className="border-b transition-colors hover:bg-muted/50 cursor-pointer" onClick={() => onEdit(app)}>
+                            <tr
+                                key={app.id}
+                                className="border-b transition-colors hover:bg-muted/50 cursor-pointer focus-visible:bg-muted focus-visible:outline-none"
+                                onClick={() => onEdit(app)}
+                                onKeyDown={(e) => handleKeyDown(e, app)}
+                                tabIndex="0"
+                                role="button"
+                                aria-label={`Edit application for ${app.vaga} at ${app.empresa}`}
+                            >
                                 <td className="p-4 align-middle font-medium">{app.empresa}</td>
                                 <td className="p-4 align-middle">{app.vaga}</td>
                                 <td className="p-4 align-middle"><StatusBadge status={app.etapa} /></td>
@@ -39,7 +54,7 @@ const TableView = ({ data, onEdit, onDelete }) => {
                                 <td className="p-4 align-middle">
                                     <div className="flex flex-wrap gap-1">
                                         {app.stack?.slice(0, 3).map(s => (
-                                            <span key={s} className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">{s}</span>
+                                            <span key={s} className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">{s}</span>
                                         ))}
                                         {app.stack?.length > 3 && <span className="text-xs text-muted-foreground">+{app.stack.length - 3}</span>}
                                     </div>
@@ -49,13 +64,25 @@ const TableView = ({ data, onEdit, onDelete }) => {
                                 <td className="p-4 align-middle">{app.senioridade}</td>
                                 <td className="p-4 align-middle" onClick={e => e.stopPropagation()}>
                                     {app.linkVaga && (
-                                        <a href={app.linkVaga} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary">
+                                        <a
+                                            href={app.linkVaga}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="text-muted-foreground hover:text-primary focus-visible:ring-2 focus-visible:ring-ring rounded-sm outline-none"
+                                            aria-label="Open job link"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
                                             <ExternalLink size={14} />
                                         </a>
                                     )}
                                 </td>
                                 <td className="p-4 align-middle" onClick={e => e.stopPropagation()}>
-                                    <Button variant="ghost" size="icon" onClick={() => onDelete(app.id)}>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => onDelete(app.id)}
+                                        aria-label="Delete application"
+                                    >
                                         <Trash2 size={14} className="text-destructive" />
                                     </Button>
                                 </td>
@@ -78,7 +105,7 @@ const StatusBadge = ({ status }) => {
     else if (status === 'Negativa') colorClass = "bg-red-500/15 text-red-500";
 
     return (
-        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent ${colorClass}`}>
+        <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent ${colorClass}`}>
             {status}
         </span>
     );
@@ -86,10 +113,19 @@ const StatusBadge = ({ status }) => {
 
 const formatDate = (dateString) => {
     if (!dateString) return '-';
-    // Use simple string logic to avoid timezone issues with Date() object if format is 'YYYY-MM-DD'
-    const parts = dateString.split('T')[0].split('-');
-    if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
-    return dateString;
+    // Use Intl.DateTimeFormat for consistent localized formatting
+    // Assuming the input dateString is ISO or similar standard format
+    // Adjusting for timezone offset often requires more robust lib like date-fns, 
+    // but for simple display of YYYY-MM-DD from server (often UTC or local), we can try to be safe.
+    // If the string is YYYY-MM-DD, we can parse it manually to avoid timezone shifts on simple dates.
+
+    // Fallback to simple parse if time is not critical
+    try {
+        const date = new Date(dateString);
+        return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date);
+    } catch (e) {
+        return dateString;
+    }
 };
 
 export default TableView;

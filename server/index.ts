@@ -91,9 +91,11 @@ const app = new Elysia()
         
 TASK: Customize the following LaTeX resume for the job description provided.
 RULES:
-1. Keep the exact same LaTeX structure and commands. Do NOT remove packages or structural elements.
+1. Keep the same LaTeX structure and commands. Do NOT remove packages, structural elements or comments.
 2. Only modify the Content (Summary, Experience bullets, Skills) to better match the Job Description keywords.
 3. Output ONLY the raw LaTeX code. No markdown code blocks, no intro text. Do not wrap in \`\`\`latex.
+4. Use power verbs in job's description, under "EXPERIÊNCIA" section, like "Desenvolvi soluções", "Gerenciei equipes", "Otimizei processos", etc.
+5. Use the same bullet points style as the base resume.
 
 JOB DESCRIPTION:
 ${jobDescription}
