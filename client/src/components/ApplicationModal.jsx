@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { generateResume } from '../api';
+import { getTags, generateResume } from '../api';
 import { toast } from 'sonner';
 
 const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
@@ -26,6 +26,13 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
     });
 
     const [stackInput, setStackInput] = useState('');
+    const [availableTags, setAvailableTags] = useState([]);
+
+    useEffect(() => {
+        if (isOpen) {
+            getTags().then(setAvailableTags);
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         if (app) {
@@ -170,12 +177,18 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                                     ))}
                                     <input
                                         id="stack-input"
+                                        list="stack-suggestions"
                                         className="bg-transparent outline-none flex-1 min-w-[100px] text-sm"
                                         value={stackInput}
                                         onChange={e => setStackInput(e.target.value)}
                                         onKeyDown={handleAddStack}
                                         placeholder="Add tec (Enter)..."
                                     />
+                                    <datalist id="stack-suggestions">
+                                        {availableTags.map(tag => (
+                                            <option key={tag} value={tag} />
+                                        ))}
+                                    </datalist>
                                 </div>
                             </div>
 

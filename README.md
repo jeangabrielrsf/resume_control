@@ -1,6 +1,6 @@
 # Controle de Candidaturas
 
-Este projeto é uma aplicação para gerenciamento de processos seletivos e candidaturas de emprego. Ele consiste em um **front-end** em React e um **back-end** utilizando ElysiaJS e Bun, com suporte a geração de currículos via IA (Google Gemini).
+Este projeto é uma aplicação para gerenciamento de processos seletivos e candidaturas de emprego. Ele consiste em um **front-end** em React e um **back-end** utilizando ElysiaJS e Bun, com suporte a geração de currículos via IA (Nvidia/Minimax-m2.1).
 
 ## 📋 Pré-requisitos
 
@@ -17,10 +17,10 @@ Esta é a maneira mais simples de iniciar a aplicação, pois não requer config
 
 1.  **Configure as variáveis de ambiente:**
     
-    Crie um arquivo `.env` na raiz do projeto (se já não existir) e adicione sua chave da API do Google Gemini:
+    Crie um arquivo `.env` na raiz do projeto (se já não existir) e adicione sua chave da API da Nvidia:
 
     ```bash
-    GEMINI_API_KEY=sua_chave_aqui
+    NVIDIA_API_KEY=sua_chave_aqui
     ```
 
 2.  **Suba os contêineres:**
@@ -54,7 +54,7 @@ Se você preferir rodar os serviços individualmente em sua máquina para desenv
     ```
 3.  Configure a variável de ambiente (exporte no terminal ou crie um .env na pasta server):
     ```bash
-    export GEMINI_API_KEY=sua_chave_aqui
+    export NVIDIA_API_KEY=sua_chave_aqui
     ```
 4.  Inicie o servidor:
     ```bash
@@ -85,7 +85,7 @@ Se você preferir rodar os serviços individualmente em sua máquina para desenv
 
 ## 🛠️ Tecnologias Utilizadas
 
-*   **Backend:** [Bun](https://bun.sh/), [ElysiaJS](https://elysiajs.com/), Google Generative AI.
+*   **Backend:** [Bun](https://bun.sh/), [ElysiaJS](https://elysiajs.com/), Nvidia API (Minimax-m2.1).
 *   **Frontend:** [React](https://react.dev/), [Vite](https://vitejs.dev/), [TailwindCSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/).
 *   **Infraestrutura:** Docker, Docker Compose, Nginx (no container do client).
 

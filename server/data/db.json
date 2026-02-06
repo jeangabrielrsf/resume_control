@@ -41,6 +41,90 @@
       "id": "6e9a3a13-ead1-41a5-8c82-f8d68e7f1562",
       "tempoProcesso": 0,
       "updatedAt": "2026-01-15T15:20:12.935Z"
+    },
+    {
+      "empresa": "Omie",
+      "vaga": "Desenvolvedor(a) Fullstack",
+      "linkVaga": "https://www.linkedin.com/jobs/view/4363595781/",
+      "dataCandidatura": "2026-01-28",
+      "stack": [
+        "HTML",
+        "CSS",
+        "Javascript",
+        "Vue.j",
+        "FastAPI",
+        "SQLAlchemy",
+        "Git"
+      ],
+      "etapa": "Enviei candidatura",
+      "senioridade": "Júnior",
+      "local": "Brasil",
+      "tipoVaga": "Remoto",
+      "observacoes": "",
+      "description": "A Omie tem como propósito trazer prosperidade para o ecossistema empreendedor brasileiro. Por isso, buscamos por pessoas com mentalidade de crescimento, valorizando perfis que tenham capacidade de adaptação, senso colaborativo e sejam motivadas pela inovação e pelo aprendizado contínuo.\n\n\nFaça parte da história de uma das empresas de tecnologia que mais cresce no país! 🚀\n#VempraOmie\n\n\n\nResponsabilidades e atribuições\n\nTrabalhar no desenvolvimento de novas interfaces de usuário, traduzindo os requisitos do produto e os designs gráficos em código funcional e responsivo.\nManter e aprimorar os nossos produtos, garantindo que estejam atualizados, sejam escaláveis e funcionem bem em todas as plataformas e dispositivos.\nColaborar com a equipe de back-end para integrar as APIs e os serviços de back-end e garantir uma experiência do usuário final sem interrupções.\nAuxiliar na criação de bibliotecas e frameworks reutilizáveis para futuros usos.\nIdentificar e solucionar problemas de performance e gargalos para melhorar a experiência do usuário.\nParticipar em reuniões de revisão de código, compartilhar conhecimentos e aprender com colegas de equipe.\nRealizar testes de unidade e de interface do usuário para garantir a funcionalidade do produto\n\n\nRequisitos e qualificações\n\nProfundo conhecimento de HTML, CSS, e JavaScript.\nExperiência prática com o framework Vue.js.\nConhecimento da linguagem de programação Python.\nDesejável contato com frameworks FastAPI e SQLAlchemy.\nExperiência com bancos de dados relacionais e não relacionais.\nFamiliaridade com a ferramenta de versionamento de código GitHub e com metodologias de desenvolvimento Ágil.\nHabilidade para desenvolver soluções web.\nFlexibilidade para atuar em um ambiente dinâmico e capacidade de se adaptar a mudanças de prioridades.\nAtenção aos detalhes, habilidade para gerenciar vários projetos simultaneamente e cumprir prazos.\nExcelentes habilidades de comunicação verbal e escrita (o conhecimento de inglês é um plus).\nAtitude proativa e colaborativa, com forte foco em resultados.\nFormação em Ciência da Computação ou curso relacionado (não obrigatório, mas preferencial).\n\n\nInformações adicionais:\n\n🍴 Benefício Flexível/VR: R$ 40,00/dia útil.\n💻 Auxílio Home office.\n🚍 Precisa trabalhar presencialmente? Nós temos vale-transporte. E para você que vem de trem/metrô disponibilizamos um fretado na estação para deslocamento até o escritório.\n🏪 Plano de saúde Bradesco.\n🦷 Plano odontológico Amil Dental.\n💊 Auxílio Farmácia.\n🍼 Auxílio-creche.\n🏖️ Day off de aniversário, para você comemorar como quiser!\n🏋️ ♀️ Para manter a saúde e o bem-estar físico em dia, contamos com Apps parceiros de academias credenciadas.\n🧘 Para relaxar e cuidar da saúde mental, temos parcerias com plataformas de terapia e meditação online.\n🎭 Parceria com o SESC - Credencial Plena\n📚 Descontos exclusivos nas melhores faculdades e instituições de ensino, voltados para cursos de graduação, pós-graduação e MBA. Além de disponibilizarmos o Omie Academy gratuito para colaboradores.\n📚 Parceria com cursos de English in Company.\n🔒 Programa de descontos em seguros.\n💰 Swile Shop: plataforma de descontos exclusivos.\n💰 Parceria com a Dell: cupons de até R$ 2.000,00.\n💰 PPRL.\n✈️ Benefícios de viagens.\n💙 Seguro de vida.",
+      "id": "4eae2915-b761-4a63-94b4-7e49dc5e0c11",
+      "tempoProcesso": 0,
+      "updatedAt": "2026-01-28T18:51:22.268Z"
+    },
+    {
+      "empresa": "BeFly",
+      "vaga": "Analista de Desenvolvimento Pl - BeFly",
+      "linkVaga": "https://www.linkedin.com/jobs/view/4344141596/",
+      "dataCandidatura": "2026-01-28",
+      "stack": [
+        "Node.js",
+        "Python",
+        "SQL Server",
+        "React.js"
+      ],
+      "etapa": "Enviei candidatura",
+      "senioridade": "Pleno",
+      "local": "Brasil",
+      "tipoVaga": "Remoto",
+      "observacoes": "",
+      "description": "Descrição da vaga\nSomos o ecossistema de turismo mais transformador na vida de cada pessoa! A paixão por viagens está em nosso DNA.\nNossos escritórios proporcionam um ambiente moderno e pensado para uma melhor experiência de trabalho presencial. Somos múltiplos e diversos, gostamos de trabalhar com gente do bem, de forma inteligente, prática, ousada, inovadora e com tudo isso, buscamos o extraordinário.\nValorizamos as conexões reais e ambientes leves, seja através do cafezinho no meio de expediente ou aquele papo, que sempre gera novas ideias.\nO que nos move é a transformação e nosso lema é criar caminhos além do imaginável!\nIsso nos torna BeFly. E aí, você vem com a gente? \n#VemSerBeFly \nResponsabilidades e atribuições\nConfira As Principais Atividades Desta Vaga\nPlanejar e desenhar melhores soluções para integrações de sistemas e aumento de eficiência operacional e financeira em conjunto com os usuários finais.\nIntegrar ferramentas de terceiros como Wooba, Travel Compositor e Niara.\nDesenvolver ferramentas em NodeJS ou Python com banco de dados em SQL Server.\nDar suporte a aplicações legadas e aumentar a robustez de sistemas já em produção.\nRequisitos e qualificações\nCurtiu?! Vamos em frente, entenda o que esperamos de você:\nExperiência prévia com desenvolvimento de aplicações backend em linguagens Javascript;\nConhecimento de frameworks de desenvolvimento e melhores práticas de arquitetura;\nConhecimento avançado em NodeJS ou Python;\nBom conhecimento em aplicação frontend em React;\nInglês para análise de documentação e manuais estrangeiros;\nInformações adicionais\nQuais os benefícios de ser BeFlyer?\nVR iFood Benefícios | Para que você se alimente bem.\nAssistência médica Bradesco | Mensalidade 100% paga pela BeFly ao colaborador titular e 50% para dependentes, com comparticipação.\nSeguro de vida | Sem custo para o colaborador.\nAssistência odontológica | OdontoPrev.\nWellhub | Para você cuidar da sua saúde física.\nDay off de aniversário | Um dia de descanso no seu aniversário.\nPrograma Oriente-me | Sessões de terapia sem custo adicional.\nConvênios educacionais | Descontos em instituições de ensino parceiras.\nBeFlyers Travel | Agência de lazer interna com condições especiais para colaboradores.\n#BeFly\nCriamos caminhos além do imaginável — e o próximo pode ser o seu!\nA BeFly é um ecossistema de empresas de turismo e tecnologia, fundado em outubro de 2021, que reúne marcas com mais de 40 anos de história. Estamos presentes em todo o Brasil, com cerca de 2.000 colaboradores e soluções que atendem viajantes individuais, empresas e eventos, conectando pessoas, tecnologia e propósito.\nSomos apaixonados por clientes, resultados e por criar experiências que marcam para sempre. Aqui, inovação e desenvolvimento caminham juntos. Nosso ambiente é dinâmico, acolhedor e cheio de oportunidades para quem quer crescer e fazer a diferença no futuro do turismo.\nSe você busca uma jornada com significado, espaço para aprender e transformar, a BeFly é o seu lugar.\n🚀 Clique aqui e explore o universo BeFly.",
+      "id": "d5d5f4d5-a8af-4154-80ef-4b219320bb43",
+      "tempoProcesso": 0,
+      "updatedAt": "2026-01-28T18:53:43.778Z"
+    },
+    {
+      "empresa": "FCamara",
+      "vaga": "Desenvolvedor(a) Python Pleno com foco em GenAI",
+      "linkVaga": "https://www.linkedin.com/jobs/view/4366680238/",
+      "dataCandidatura": "2026-01-28",
+      "stack": [
+        "Python",
+        "SQL",
+        "GenAI",
+        "Git",
+        "GCP",
+        "Azure DevOPS"
+      ],
+      "etapa": "Enviei candidatura",
+      "senioridade": "Pleno",
+      "local": "Brasil",
+      "tipoVaga": "Remoto",
+      "observacoes": "",
+      "description": "Descrição da vaga\n\nA FCamara está em busca de uma pessoa Desenvolvedor(a) Python Pleno com foco em GenAI, para se juntar a nossa equipe dinâmica e atuar em parceria com a maior construtora da América Latina, que ao longo de sua existência, sempre esteve sintonizada com o mercado e as melhores práticas, além de priorizar sempre as necessidades de seus clientes. É uma empresa que está em constante movimento, se reinventando a cada dia para oferecer soluções de moradia para todas as gerações.\n\nSobre o Time:\n\nNosso time é o motor da transformação digital e o principal responsável pela disseminação do uso de Inteligência Artificial em toda a companhia. Além da governança técnica (Python e Power BI), lideramos o desenvolvimento de soluções avançadas de GenAI e Low Code (Power Platform e n8n), entregando desde diversos assistentes conversacionais integrados ao WhatsApp até agentes autônomos executores de tarefas, além de inúmeras outras ferramentas.\n\nAtuamos de forma transversal: recebemos demandas e desafios de todas as áreas de negócio e da TI, e nossa missão não é apenas solucionar problemas, mas sim transformar necessidades pontuais em produtos escaláveis. Gerimos uma plataforma interna de criação de assistentes virtuais e ferramentas que democratizam o uso da IA para milhares de colaboradores. Se você gosta de transformar uma dor operacional em uma solução que impacta milhares de pessoas, aqui é o seu lugar.\n\nResponsabilidades e atribuições\n\nPrincipais Responsabilidades\n\nCriar e manter APIs que alimentam nossa plataforma e nossos assistentes.\nDesenvolver aplicações internas desenvolvidas em Streamlit, garantindo robustez e usabilidade para as áreas de negócio.\nDesenvolver agentes autônomos em Python para executar tarefas transacionais e automações complexas.\nAtuar como avaliador técnico de scripts Python desenvolvidos pelas áreas de negócio, garantindo segurança, qualidade e padronização antes da liberação.\nDesenvolver rotinas de processamento assíncrono (workers/functions na Azure) para lidar com grandes volumes de dados e requisições.\n\nRequisitos Obrigatórios\n\nSólida experiência com Python.\nExperiência em construção de APIs.\nExperiência com RPA.\nConhecimento em Bancos de Dados Relacionais e linguagem SQL.\nPráticas de engenharia de software: Git, Testes Automatizados e Code Review.\nConhecimento ou forte interesse em arquitetura de Agentes e LLMs.\n\nDiferenciais\n\nExperiência com frameworks de GenAI como LlamaIndex e LangChain.\nExperiência com desenvolvimento de RAG, Tools e MCP.\nExperiência com Streamlit para front-end.\nExperiência com processos Assíncronos, Paralelos e Filas.\nManipulação de dados com Pandas.\nVivência com ferramentas Low Code (principalmente N8N).\nExperiência com automação para SAP HANA.\nConhecimento em CI/CD.\nFamiliaridade com GCP e/ou Azure DevOps.\n\nPerfil Comportamental\n\nAgilidade e Pivotagem: O time testa muitas hipóteses. É preciso saber mudar de direção rápido quando um projeto requer adaptação.\nVisão de Escala: Capacidade de olhar para um chamado específico e enxergar uma oportunidade de criar um produto que sirva para toda a companhia.\nProatividade: Vontade de aprender e implementar as inovações que chegam ao mercado (novos modelos, frameworks, técnicas de RAG).\nComunicação Ativa: O time é pequeno e integrado. Você precisará trocar informações constantemente.\n\nTransformamos mundos sonhados em trajetórias reais.🧡🚀\n\nAqui somos #SangueLaranja!\n\nEstamos há 17 anos no mercado, lado a lado com nossos clientes, proporcionando experiências transformadoras.\n\nSomos um ecossistema de tecnologia e inovação, com expansão global; Além do Brasil estamos presentes na Europa e Reino Unido com escritórios em Portugal, Londres, Dubai e Holanda. 🌎\n\nF de Formação: acreditamos na prática da cultura do compartilhamento, no senso de comunidade, e que o conhecimento\n\ntem o poder da transformação!\n\nPossuímos iniciativas, e ações sociais, que promovem o desenvolvimento, como a comunidade tech Orange Juice, o Programa de Formação,\n\nnossa escola de liderança e diversas parcerias com ONGs e Edtechs.\n\nNa FCamara todos são bem-vindos, para nós, Diversidade, Respeito e Ética, são elementos inegociáveis e fazem parte do nosso DNA. \n\nE aí, está pronto para fazer parte de um time incrível e ser protagonista da própria história?",
+      "id": "0ac08ebe-c04d-4145-a40b-5ef3fa17cfa0",
+      "tempoProcesso": 0,
+      "updatedAt": "2026-01-28T19:18:17.192Z"
+    },
+    {
+      "empresa": "PetLove",
+      "vaga": "Dev Backend Pleno",
+      "linkVaga": "https://www.linkedin.com/jobs/view/4366358785/",
+      "dataCandidatura": "2026-01-28",
+      "stack": [],
+      "etapa": "Enviei candidatura",
+      "senioridade": "Pleno",
+      "local": "Brasil",
+      "tipoVaga": "Remoto",
+      "observacoes": "",
+      "description": "Sobre a vaga\nSomos uma empresa de tecnologia movida por nossa paixão por animais de estimação! 💜\n\nNosso trabalho diário é tornar a vida dos pais dos animais de estimação mais fácil por meio de uma experiência única de aprender, fazer compras e consumir o que eles precisam, a qualquer hora. Sempre centrado no que é melhor para a felicidade e saúde dos animais de estimação.\n\nA Petlove já é a maior empresa de tecnologia na indústria pet do Brasil. Recentemente, adicionamos ao nosso portfólio empresas estratégicas como DogHero, VetSmart, Vetus e Porto.pet para animais de estimação, a fim de perseguir nossa visão de criar o maior ecossistema de animais de estimação do Brasil.\n\nTemos muito orgulho de já ter atendido mais de 5 milhões de clientes em todo o país, mas ainda estamos famintos pelo que vem por aí (o Brasil tem mais de 48 milhões de domicílios com animais de estimação). Se você está procurando uma oportunidade única na vida, adora tecnologia e é realmente apaixonado por animais de estimação, somos perfeitos um para o outro!\n\nPrincipais Atividades\n\nAtuação em uma squad com foco nos sistemas que atendem toda a companhia.\nTrabalhar em equipe multidisciplinar, usando metodologia ágil para criação e evolução de produtos;\nEntender os objetivos do negócio e transformá-los em soluções sistêmicas;\nEstimar o esforço necessário para o desenvolvimento do sistema;\nRealizar revisão de código para garantir que respeitam as boas práticas de programação.\nEscrever código limpo, reutilizável e de fácil manutenção;\nImplementar testes unitários e de integração para garantir a qualidade do código desenvolvido;\nAjudar a criar arquiteturas escaláveis;\nSe responsabilizar pelo desenvolvimento, deploy, documentação e monitoramento dos sistemas;\n\nResponsabilidades\n\nDesenvolver e manter fluxos de IA usando LangGraph e LangChain.\nEscrever e manter código em Python, com foco em integrações com modelos de linguagem (LLMs).\nParticipar do design e implementação de agentes\nTrabalhar em conjunto com engenheiros de software, cientistas de dados e product managers.\nColaborar na documentação e testes de fluxos de IA.\n\nRequisitos\n\nConhecimento em Python (sintaxe, estruturas de dados, boas práticas).\nNoções básicas de APIs REST e estruturas de dados em JSON.\nConhecer conceitos de IA generativa e LLMs.\nExperiência com LangGraph, LangChain, OpenAI API, ou similares.\nExperiência com versionamento (Git) e observabilidade (honey bagder, datadog)\n\nSomos o maior ecossistema pet do Brasil, unidos por um propósito: transformar o mundo em um lugar onde os pets sejam mais felizes e saudáveis. Pioneiros no digital, oferecemos tudo o que o seu pet precisa, em um só lugar: e-commerce, app, lojas físicas, planos de saúde pet, creche, hospedagem e muito mais! Estamos sempre inovando com tecnologias que empoderam médicos veterinários e contamos com a maior referência em diagnósticos rápidos e de alta qualidade.\n\nE você, vem fazer parte dessa missão com a gente?\n\nNosso jeito de trabalhar\n\nNa Petlove nós somos apaixonados por pets e por pessoas. Por isso, buscamos garantir que somos inclusivos e formamos times diversos, sempre procurando refletir em nossas decisões nosso compromisso com esse tema! Consideramos enriquecedor contratar pessoas com deficiência, de gêneros e orientação sexual diversas, incluindo todas as etnias e religiões, além de todas as idades e demais marcadores de identidade. Temos certeza que só assim formaremos times inconformados, ágeis e comprometidos com o nosso propósito.\n\nSe identificou? Então vem com a gente!\n\nOnde tem pet, tem love — só falta você!\n\nQuer saber mais sobre a Petlove e nossos benefícios? Não perca a chance de conferir nossa página de carreiras: https://petlove.jobs.recrut.ai/",
+      "id": "026ad501-c24c-48ce-b79d-2c78a68f08ff",
+      "tempoProcesso": 0,
+      "updatedAt": "2026-01-28T19:35:45.262Z"
     }
   ],
   "settings": {

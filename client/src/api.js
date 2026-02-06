@@ -64,3 +64,11 @@ export const generateResume = async (jobDescription) => {
     });
     return data.generatedResume;
 };
+
+export const getTags = async () => {
+    try {
+        return await request('/tags');
+    } catch {
+        return [];
+    }
+};
