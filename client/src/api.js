@@ -57,10 +57,10 @@ export const saveSettings = (settings) => request('/settings', {
     body: JSON.stringify(settings),
 });
 
-export const generateResume = async (jobDescription) => {
+export const generateResume = async (jobDescription, model = 'kimi') => {
     const data = await request('/ai/generate-resume', {
         method: 'POST',
-        body: JSON.stringify({ jobDescription }),
+        body: JSON.stringify({ jobDescription, model }),
     });
     return data.generatedResume;
 };

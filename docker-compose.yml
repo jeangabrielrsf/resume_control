@@ -11,7 +11,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
-      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - NVIDIA_KIMI_API_KEY=${NVIDIA_KIMI_API_KEY}
+      - NVIDIA_MINIMAX_API_KEY=${NVIDIA_MINIMAX_API_KEY}
     restart: unless-stopped
 
   client:

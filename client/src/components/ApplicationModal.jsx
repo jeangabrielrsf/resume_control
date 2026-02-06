@@ -88,6 +88,7 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
     // --- AI Logic ---
     const [generatedResume, setGeneratedResume] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [selectedModel, setSelectedModel] = useState('kimi'); // kimi or minimax
 
     const handleGenerateResume = async () => {
         if (!formData.description) {
@@ -96,7 +97,7 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
         }
         setIsGenerating(true);
         try {
-            const resume = await generateResume(formData.description);
+            const resume = await generateResume(formData.description, selectedModel);
             setGeneratedResume(resume);
             toast.success("Currículo gerado com sucesso!");
         } catch (err) {
@@ -229,6 +230,34 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                     <TabsContent value="resume" className="flex-1 overflow-y-auto pr-2 space-y-4 py-4">
                         <div className="bg-muted p-4 rounded-md text-sm text-muted-foreground border">
                             <p>Aqui você pode gerar uma versão personalizada do seu currículo base (LaTeX) focada nesta vaga.</p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label>Modelo de IA</Label>
+                            <div className="flex gap-4">
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        id="kimi"
+                                        value="kimi"
+                                        checked={selectedModel === 'kimi'}
+                                        onChange={(e) => setSelectedModel(e.target.value)}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="kimi" className="cursor-pointer">Kimi (v2.5)</Label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        id="minimax"
+                                        value="minimax"
+                                        checked={selectedModel === 'minimax'}
+                                        onChange={(e) => setSelectedModel(e.target.value)}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="minimax" className="cursor-pointer">Minimax (v2.1)</Label>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="flex justify-end">
