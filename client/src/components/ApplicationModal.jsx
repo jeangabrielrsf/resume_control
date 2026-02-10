@@ -309,6 +309,17 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                                     />
                                     <Label htmlFor="minimax" className="cursor-pointer">Minimax (v2.1)</Label>
                                 </div>
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        id="glm4"
+                                        value="glm4"
+                                        checked={selectedModel === 'glm4'}
+                                        onChange={(e) => setSelectedModel(e.target.value)}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="glm4" className="cursor-pointer">GLM4 (v4.7)</Label>
+                                </div>
                             </div>
                         </div>
 

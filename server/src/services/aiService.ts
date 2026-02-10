@@ -1,34 +1,49 @@
 import { env } from '../config/env';
 
-export type AIModel = 'kimi' | 'minimax';
+export type AIModel = 'kimi' | 'minimax' | 'glm4';
 
-const MODELS = {
+const MODELS: Record<AIModel, string> = {
     kimi: 'moonshotai/kimi-k2.5',
-    minimax: 'minimaxai/minimax-m2.1'
+    minimax: 'minimaxai/minimax-m2.1',
+    glm4: 'z-ai/glm4.7'
 };
 
-const MAX_TOKENS = {
-    kimi: 16384,
-    minimax: 8192
+const MAX_TOKENS: Record<AIModel, number> = {
+    kimi: 8000,
+    minimax: 8000,
+    glm4: 8000
 };
 
-const TEMPERATURE = {
+const TEMPERATURE: Record<AIModel, number> = {
     kimi: 0.7,
-    minimax: 1.0
+    minimax: 1.0,
+    glm4: 1.0
 };
 
-const TOP_P = {
+const TOP_P: Record<AIModel, number> = {
     kimi: 1.0,
-    minimax: 0.95
+    minimax: 0.95,
+    glm4: 1.0
 };
+
+function getApiKey(modelType: AIModel): string {
+    const keys: Record<AIModel, string | undefined> = {
+        kimi: env.NVIDIA_KIMI_API_KEY,
+        minimax: env.NVIDIA_MINIMAX_API_KEY,
+        glm4: env.NVIDIA_MINIMAX_API_KEY // Reusing Minimax key
+    };
+    const key = keys[modelType];
+    if (!key) throw new Error(`API Key for ${modelType} is missing`);
+    return key;
+}
+
+function stripThinkTags(content: string): string {
+    return content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+}
 
 export const generateResume = async (jobDescription: string, baseResume: string, modelType: AIModel = 'kimi') => {
-    const apiKey = modelType === 'kimi' ? env.NVIDIA_KIMI_API_KEY : env.NVIDIA_MINIMAX_API_KEY;
+    const apiKey = getApiKey(modelType);
     const modelName = MODELS[modelType];
-
-    if (!apiKey) {
-        throw new Error(`API Key for ${modelType} is missing`);
-    }
 
     const systemPrompt = `You are a Resume Expert.
 TASK: Customize the following LaTeX resume for the job description provided.
@@ -61,7 +76,8 @@ ${baseResume}`;
             max_tokens: MAX_TOKENS[modelType],
             temperature: TEMPERATURE[modelType],
             top_p: TOP_P[modelType],
-            stream: false
+            stream: false,
+            ...(modelType === 'glm4' && { extra_body: { chat_template_kwargs: { enable_thinking: true, clear_thinking: false } } })
         })
     });
 
@@ -74,6 +90,7 @@ ${baseResume}`;
     let content = data.choices?.[0]?.message?.content || "";
 
     // Cleanup
+    content = stripThinkTags(content);
     content = content.replace(/^```latex\n|```$/g, '').trim();
     content = content.replace(/^```\n/, '').replace(/```$/, '');
 

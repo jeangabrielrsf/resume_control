@@ -3,8 +3,24 @@ import type { AIModel } from './aiService';
 
 const MODELS: Record<AIModel, string> = {
     kimi: 'moonshotai/kimi-k2.5',
-    minimax: 'minimaxai/minimax-m2.1'
+    minimax: 'minimaxai/minimax-m2.1',
+    glm4: 'z-ai/glm4.7'
 };
+
+function getApiKey(modelType: AIModel): string {
+    const keys: Record<AIModel, string | undefined> = {
+        kimi: env.NVIDIA_KIMI_API_KEY,
+        minimax: env.NVIDIA_MINIMAX_API_KEY,
+        glm4: env.NVIDIA_MINIMAX_API_KEY
+    };
+    const key = keys[modelType];
+    if (!key) throw new Error(`API Key for ${modelType} is missing`);
+    return key;
+}
+
+function stripThinkTags(content: string): string {
+    return content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+}
 
 export type ScrapedJobData = {
     empresa: string;
@@ -46,12 +62,8 @@ async function fetchPageContent(url: string): Promise<string> {
 export async function scrapeJobFromUrl(url: string, modelType: AIModel = 'kimi'): Promise<ScrapedJobData> {
     const pageContent = await fetchPageContent(url);
 
-    const apiKey = modelType === 'kimi' ? env.NVIDIA_KIMI_API_KEY : env.NVIDIA_MINIMAX_API_KEY;
+    const apiKey = getApiKey(modelType);
     const modelName = MODELS[modelType];
-
-    if (!apiKey) {
-        throw new Error(`API Key for ${modelType} is missing`);
-    }
 
     const systemPrompt = `You are a Job Listing Data Extractor.
 TASK: Extract structured job information from the provided page content.
@@ -90,7 +102,8 @@ RULES:
             max_tokens: 4096,
             temperature: 0.3,
             top_p: 0.95,
-            stream: false
+            stream: false,
+            ...(modelType === 'glm4' && { extra_body: { chat_template_kwargs: { enable_thinking: true, clear_thinking: false } } })
         })
     });
 
@@ -102,7 +115,8 @@ RULES:
     const data = await response.json() as any;
     let content = data.choices?.[0]?.message?.content || "{}";
 
-    // Clean up potential markdown wrappers
+    // Clean up potential markdown wrappers and think tags
+    content = stripThinkTags(content);
     content = content.replace(/^```json\n?|```$/g, '').trim();
     content = content.replace(/^```\n?/, '').replace(/```$/, '').trim();
 
