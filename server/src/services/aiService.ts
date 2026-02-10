@@ -77,5 +77,6 @@ ${baseResume}`;
     content = content.replace(/^```latex\n|```$/g, '').trim();
     content = content.replace(/^```\n/, '').replace(/```$/, '');
 
+    console.log("Generating resume completed")
     return content;
 };

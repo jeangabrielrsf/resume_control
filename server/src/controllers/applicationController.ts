@@ -68,11 +68,19 @@ export const deleteApplication = async ({ params: { id }, error }: any) => {
     return { success: true, id };
 };
 
-export const getTags = async () => {
+export const getTags = async ({ query }: any) => {
     await db.read();
     const apps = db.data.applications || [];
     const allTags = apps.flatMap(app => app.stack || []);
-    return [...new Set(allTags)].sort();
+    const uniqueTags = [...new Set(allTags)].sort();
+
+    const searchTerm = query?.query?.toLowerCase();
+
+    if (searchTerm) {
+        return uniqueTags.filter(tag => tag.toLowerCase().startsWith(searchTerm));
+    }
+
+    return uniqueTags;
 };
 
 export const applicationSchema = {

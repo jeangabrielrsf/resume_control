@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { X, Save, Wand2 } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { X, Save, Wand2, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getTags, generateResume } from '../api';
+import { getTags, generateResume, scrapeJobLink } from '../api';
+import { debounce } from '../lib/utils';
 import { toast } from 'sonner';
 
 const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
@@ -27,6 +28,13 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
 
     const [stackInput, setStackInput] = useState('');
     const [availableTags, setAvailableTags] = useState([]);
+
+    const debouncedFetchTags = useCallback(
+        debounce((query) => {
+            getTags(query).then(setAvailableTags);
+        }, 300),
+        []
+    );
 
     useEffect(() => {
         if (isOpen) {
@@ -88,7 +96,34 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
     // --- AI Logic ---
     const [generatedResume, setGeneratedResume] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isScraping, setIsScraping] = useState(false);
     const [selectedModel, setSelectedModel] = useState('kimi'); // kimi or minimax
+
+    const handleAutoFill = async () => {
+        if (!formData.linkVaga) {
+            toast.warning('Por favor, insira o link da vaga primeiro.');
+            return;
+        }
+        setIsScraping(true);
+        try {
+            const jobData = await scrapeJobLink(formData.linkVaga, selectedModel);
+            setFormData(prev => ({
+                ...prev,
+                empresa: jobData.empresa || prev.empresa,
+                vaga: jobData.vaga || prev.vaga,
+                stack: jobData.stack?.length ? jobData.stack : prev.stack,
+                senioridade: jobData.senioridade || prev.senioridade,
+                local: jobData.local || prev.local,
+                tipoVaga: jobData.tipoVaga || prev.tipoVaga,
+                description: jobData.description || prev.description
+            }));
+            toast.success('Campos preenchidos automaticamente!');
+        } catch (err) {
+            toast.error('Erro ao extrair dados da vaga. Tente novamente.');
+        } finally {
+            setIsScraping(false);
+        }
+    };
 
     const handleGenerateResume = async () => {
         if (!formData.description) {
@@ -123,6 +158,23 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
 
                     <TabsContent value="application" className="flex-1 overflow-y-auto pr-2">
                         <div className="grid gap-4 py-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="linkVaga">Link da Vaga</Label>
+                                <div className="flex gap-2">
+                                    <Input id="linkVaga" name="linkVaga" value={formData.linkVaga} onChange={handleChange} placeholder="https://..." className="flex-1" />
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        disabled={!formData.linkVaga || isScraping}
+                                        onClick={handleAutoFill}
+                                        className="whitespace-nowrap"
+                                    >
+                                        {isScraping ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
+                                        {isScraping ? 'Preenchendo...' : 'Preencher automaticamente'}
+                                    </Button>
+                                </div>
+                            </div>
+
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="empresa">Empresa</Label>
@@ -181,7 +233,11 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                                         list="stack-suggestions"
                                         className="bg-transparent outline-none flex-1 min-w-[100px] text-sm"
                                         value={stackInput}
-                                        onChange={e => setStackInput(e.target.value)}
+                                        onChange={e => {
+                                            const val = e.target.value;
+                                            setStackInput(val);
+                                            debouncedFetchTags(val);
+                                        }}
                                         onKeyDown={handleAddStack}
                                         placeholder="Add tec (Enter)..."
                                     />
@@ -208,10 +264,6 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="linkVaga">Link da Vaga</Label>
-                                <Input id="linkVaga" name="linkVaga" value={formData.linkVaga} onChange={handleChange} placeholder="https://..." />
-                            </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="description">Descrição / Observações</Label>

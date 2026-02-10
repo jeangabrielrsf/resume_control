@@ -2,6 +2,7 @@ import { Elysia, t } from 'elysia';
 import * as AppController from '../controllers/applicationController';
 import * as SettingsController from '../controllers/settingsController';
 import * as ResumeController from '../controllers/resumeController';
+import * as ScrapeController from '../controllers/scrapeController';
 
 export const routes = new Elysia()
     .get('/', () => 'Job Tracker API Running')
@@ -14,6 +15,12 @@ export const routes = new Elysia()
     .post('/ai/generate-resume', ResumeController.generateResumeController, {
         body: t.Object({
             jobDescription: t.String(),
+            model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax')]))
+        })
+    })
+    .post('/ai/scrape-job', ScrapeController.scrapeJobController, {
+        body: t.Object({
+            url: t.String(),
             model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax')]))
         })
     })

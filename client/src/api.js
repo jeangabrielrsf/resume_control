@@ -65,9 +65,17 @@ export const generateResume = async (jobDescription, model = 'kimi') => {
     return data.generatedResume;
 };
 
-export const getTags = async () => {
+export const scrapeJobLink = async (url, model = 'kimi') => {
+    return await request('/ai/scrape-job', {
+        method: 'POST',
+        body: JSON.stringify({ url, model }),
+    });
+};
+
+export const getTags = async (query = '') => {
     try {
-        return await request('/tags');
+        const url = query ? `/tags?query=${encodeURIComponent(query)}` : '/tags';
+        return await request(url);
     } catch {
         return [];
     }
