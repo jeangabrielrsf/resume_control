@@ -15,13 +15,13 @@ export const routes = new Elysia()
     .post('/ai/generate-resume', ResumeController.generateResumeController, {
         body: t.Object({
             jobDescription: t.String(),
-            model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax'), t.Literal('glm4')]))
+            model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax'), t.Literal('glm4'), t.Literal('deepseek')]))
         })
     })
     .post('/ai/scrape-job', ScrapeController.scrapeJobController, {
         body: t.Object({
             url: t.String(),
-            model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax'), t.Literal('glm4')]))
+            model: t.Optional(t.Union([t.Literal('kimi'), t.Literal('minimax'), t.Literal('glm4'), t.Literal('deepseek')]))
         })
     })
 

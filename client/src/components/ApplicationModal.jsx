@@ -320,6 +320,17 @@ const ApplicationModal = ({ isOpen, onClose, app, onSave }) => {
                                     />
                                     <Label htmlFor="glm4" className="cursor-pointer">GLM4 (v4.7)</Label>
                                 </div>
+                                <div className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        id="deepseek"
+                                        value="deepseek"
+                                        checked={selectedModel === 'deepseek'}
+                                        onChange={(e) => setSelectedModel(e.target.value)}
+                                        className="cursor-pointer"
+                                    />
+                                    <Label htmlFor="deepseek" className="cursor-pointer">DeepSeek (Reasoner)</Label>
+                                </div>
                             </div>
                         </div>
 

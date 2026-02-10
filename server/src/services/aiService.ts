@@ -1,36 +1,48 @@
 import { env } from '../config/env';
 
-export type AIModel = 'kimi' | 'minimax' | 'glm4';
+export type AIModel = 'kimi' | 'minimax' | 'glm4' | 'deepseek';
+
+const BASE_URL: Record<AIModel, string> = {
+    kimi: 'https://integrate.api.nvidia.com/v1/chat/completions',
+    minimax: 'https://integrate.api.nvidia.com/v1/chat/completions',
+    glm4: 'https://integrate.api.nvidia.com/v1/chat/completions',
+    deepseek: 'https://api.deepseek.com/v1/chat/completions'
+};
 
 const MODELS: Record<AIModel, string> = {
     kimi: 'moonshotai/kimi-k2.5',
     minimax: 'minimaxai/minimax-m2.1',
-    glm4: 'z-ai/glm4.7'
+    glm4: 'z-ai/glm4.7',
+    deepseek: 'deepseek-reasoner'
 };
 
 const MAX_TOKENS: Record<AIModel, number> = {
-    kimi: 8000,
-    minimax: 8000,
-    glm4: 8000
+    kimi: 16000,
+    minimax: 16000,
+    glm4: 16000,
+    deepseek: 16000
 };
 
 const TEMPERATURE: Record<AIModel, number> = {
     kimi: 0.7,
     minimax: 1.0,
-    glm4: 1.0
+    glm4: 1.0,
+    deepseek: 1.3
 };
 
 const TOP_P: Record<AIModel, number> = {
     kimi: 1.0,
     minimax: 0.95,
-    glm4: 1.0
+    glm4: 1.0,
+    deepseek: 1.0
 };
 
 function getApiKey(modelType: AIModel): string {
     const keys: Record<AIModel, string | undefined> = {
         kimi: env.NVIDIA_KIMI_API_KEY,
         minimax: env.NVIDIA_MINIMAX_API_KEY,
-        glm4: env.NVIDIA_MINIMAX_API_KEY // Reusing Minimax key
+        glm4: env.NVIDIA_MINIMAX_API_KEY,
+        deepseek: env.DEEPSEEK_API_KEY
     };
     const key = keys[modelType];
     if (!key) throw new Error(`API Key for ${modelType} is missing`);
@@ -58,9 +70,9 @@ RULES:
 BASE RESUME LATEX:
 ${baseResume}`;
 
-    console.log(`Generating resume with Nvidia/${modelName}...`);
+    console.log(`Generating resume with ${modelName}...`);
 
-    const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+    const response = await fetch(BASE_URL[modelType], {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${apiKey}`,
@@ -83,7 +95,7 @@ ${baseResume}`;
 
     if (!response.ok) {
         const errText = await response.text();
-        throw new Error(`Nvidia API failed: ${response.status} ${errText}`);
+        throw new Error(`AI API failed (${modelType}): ${response.status} ${errText}`);
     }
 
     const data = await response.json() as any;

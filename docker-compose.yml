@@ -13,6 +13,7 @@ services:
     environment:
       - NVIDIA_KIMI_API_KEY=${NVIDIA_KIMI_API_KEY}
       - NVIDIA_MINIMAX_API_KEY=${NVIDIA_MINIMAX_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
     restart: unless-stopped
 
   client:
